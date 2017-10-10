@@ -6,9 +6,9 @@ A movie web application that shows movies currently showing in theatres and comi
 - HTML
 - CSS
 - JavaScript
-- [The Movie DB API] (https://www.themoviedb.org/documentation/api)
-- [Firebase] (https://firebase.google.com/)
+- [The Movie DB API](https://www.themoviedb.org/documentation/api)
+- [Firebase](https://firebase.google.com/)
 
 ## Real-Time Viewing
 
-Web application can be viewed [here] (https://kb-top-10-movies.firebaseapp.com/)
+Web application can be viewed [here](https://kb-top-10-movies.firebaseapp.com/).
