@@ -7,10 +7,28 @@ html, body {
 }
 
 body {
-	background-color: grey;
+	background-color: #303030;
 }
+
 .kb-header .mdl-layout__header-row {
 	padding-left: 40px;
+	background-color: #212121;
+}
+
+.mdl-layout__tab-bar {
+	background-color: #212121;
+}
+
+.mdl-layout__tab-bar-left-button {
+	background-color: #212121;
+}
+
+.mdl-layout__tab-bar-right-button {
+	background-color: #212121;
+}
+
+h4, p {
+	color: #D3D3D3;
 }
 
 /*.movie-card.mdl-card{
@@ -37,6 +55,11 @@ body {
 	height: auto;
 	display: flex;
 	flex-direction: column;
+	background-color: #424242;
+}
+
+.mdl-body .mdl-card__actions {
+	border-color: darkgrey;
 }
 
 .mdl-body .mdl-card > * {
@@ -49,6 +72,11 @@ body {
 
 .mdl-body section.section--center {
 	max-width: 700px;
+	margin-bottom: 48px;
+}
+
+.mdl-body main > .page-content {
+		padding-bottom: 48px;
 }
 
 .mdl-body .mdl-card__actions {
@@ -62,7 +90,7 @@ body {
 }
 
 .mdl-body .mdl-card .mdl-card__supporting-text {
-	margin: 30px;
+	margin: 20px;
 	flex-grow: 1;
 	padding: 0;
 	color: inherit;
@@ -72,9 +100,16 @@ body {
 
 .mdl-body .mdl-card .mdl-card__supporting-text h4 {
 	margin-top: 0;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 }
 
+.mdl-body .mdl-card .mdl-card__supporting-text p {
+	margin-top: 40px;
+}
+
+.mdl-button {
+	color: #D3D3D3;
+}
 
 /*.mdl-body .kb-layout section:not(:last-of-type) {
   position: relative;
