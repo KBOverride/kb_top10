@@ -4,7 +4,8 @@ var xhr = new XMLHttpRequest();
 
 xhr.addEventListener("readystatechange", function () {
   if (this.readyState === this.DONE) {
-    console.log(this.responseText);
+    var myArr = JSON.parse(this.responseText);
+    displayInfo(myArr);
   }
 });
 
@@ -12,5 +13,6 @@ xhr.open("GET", "https://api.themoviedb.org/3/movie/343668-kingsman-2?language=e
 
 xhr.send(data);
 
-var wow = xhr.response;
-console.log(wow);
+function displayInfo(myArr) {
+	console.log(myArr.runtime);
+}
