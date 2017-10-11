@@ -21,3 +21,5 @@ function displayInfo(myArr) {
 		$(".movieDesc" + i).text(myArr.results[i-1].overview);
 	}
 }
+
+

@@ -52,7 +52,7 @@ h4, p {
 
 
 .mdl-body .mdl-card {
-	height: auto;
+	height: 278px;
 	display: flex;
 	flex-direction: column;
 	background-color: #424242;
@@ -89,27 +89,55 @@ h4, p {
 	margin: 0;
 }
 
+/*Supporting Text */
 .mdl-body .mdl-card .mdl-card__supporting-text {
-	margin: 20px;
 	flex-grow: 1;
 	padding: 0;
 	color: inherit;
 	width: calc(100% - 80px);
 }
 
-
 .mdl-body .mdl-card .mdl-card__supporting-text h4 {
-	margin-top: 0;
+	margin: 20px;
 	margin-bottom: 10px;
 }
 
 .mdl-body .mdl-card .mdl-card__supporting-text p {
-	margin-top: 40px;
+	margin-top: 30px;
+	margin-left: 20px;
 }
 
+/* More Info Button and icons */
 .mdl-button {
 	color: #D3D3D3;
 }
+
+.material-icons.md-light{
+	color: rgba(255, 255, 255, 1);
+}
+
+.centerDiv {
+	text-align: center;
+}
+
+/* Arrow buttons */
+.forward {
+	display: inline-block;
+	margin-right:-19%;
+}
+
+.backward {
+	display: inline-block;
+	margin-left:-19%;
+}
+
+/* For Overflowing text */
+/*.mdl-card__supporting-text {
+	height: 300px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	float: left;
+}*/
 
 /*.mdl-body .kb-layout section:not(:last-of-type) {
   position: relative;

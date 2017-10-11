@@ -17,5 +17,7 @@ xhr.send(data);
 function displayInfo(myArr) {
 	for (var i = 1; i <=10; i++) {
 		$(".poster" + i).attr("src", "http://image.tmdb.org/t/p/w185/" + myArr.results[i-1].poster_path);
+		$(".movieTitle" + i).text(myArr.results[i-1].title);
+		$(".movieDesc" + i).text(myArr.results[i-1].overview);
 	}
 }
