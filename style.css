@@ -111,6 +111,22 @@ h4, p {
 	color: #D3D3D3;
 }
 
+.material-icons.md-light{
+	color: rgba(255, 255, 255, 1);
+}
+
+.centerDiv {
+	text-align: center;
+}
+.forward {
+	display: inline-block;
+	margin-right:-19%;
+}
+
+.backward {
+	display: inline-block;
+	margin-left:-19%;
+}
 /*.mdl-body .kb-layout section:not(:last-of-type) {
   position: relative;
   margin-bottom: 48px;
