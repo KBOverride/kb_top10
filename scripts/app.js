@@ -9,8 +9,11 @@ xhr.addEventListener("readystatechange", function () {
   }
 });
 
-//xhr.open("GET", "https://api.themoviedb.org/3/movie/343668-kingsman-2?language=en-US&api_key=4a302fed57f688d39421fdd5fc669830");
-xhr.open("GET", "https://api.themoviedb.org/3/movie/now_playing?page=1language=en-US&api_key=4a302fed57f688d39421fdd5fc669830");
+// Movies in theatres for past 2 months and sorted by popularity by default request
+xhr.open("GET", "https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.lte=2017-10-11&primary_release_date.gte=2017-08-10&page=1");
+
+// Movies now playing request
+//xhr.open("GET", "https://api.themoviedb.org/3/movie/now_playing?page=1language=en-US&api_key=4a302fed57f688d39421fdd5fc669830");
 
 xhr.send(data);
 
