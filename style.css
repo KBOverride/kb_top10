@@ -128,11 +128,13 @@ h4, p {
 .forward {
 	display: inline-block;
 	margin-right:-19%;
+	outline: 0 none;
 }
 
 .backward {
 	display: inline-block;
 	margin-left:-19%;
+	outline: 0 none;
 }
 
 /* Image Poster Height if poster is longer than actual size*/

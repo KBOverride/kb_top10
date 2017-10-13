@@ -10,11 +10,13 @@ body {
 	background-color: #303030;
 }
 
+/* Header Styling */
 .kb-header .mdl-layout__header-row {
 	padding-left: 40px;
 	background-color: #212121;
 }
 
+/* Tab Styling */
 .mdl-layout__tab-bar {
 	background-color: #212121;
 }
@@ -27,6 +29,7 @@ body {
 	background-color: #212121;
 }
 
+/* Movie title and text color */
 h4, p {
 	color: #D3D3D3;
 }
@@ -46,6 +49,7 @@ h4, p {
 	padding-top: 20px;
 	position: relative;
 }*/
+
 .mdl-body main {
 	padding-top: 48px;
 }
@@ -89,7 +93,7 @@ h4, p {
 	margin: 0;
 }
 
-/*Supporting Text */
+/* Supporting Text */
 .mdl-body .mdl-card .mdl-card__supporting-text {
 	flex-grow: 1;
 	padding: 0;
@@ -124,11 +128,18 @@ h4, p {
 .forward {
 	display: inline-block;
 	margin-right:-19%;
+	outline: 0 none;
 }
 
 .backward {
 	display: inline-block;
 	margin-left:-19%;
+	outline: 0 none;
+}
+
+/* Image Poster Height if poster is longer than actual size*/
+img {
+	height: 278px;
 }
 
 /* For Overflowing text */

@@ -7,9 +7,10 @@ A movie web application that shows movies currently showing in theatres and comi
 - CSS
 - JavaScript
 - jQuery
-- [LazyLoad(Speeds up loading of web pages)](https://github.com/verlok/lazyload)
 - [The Movie DB API](https://www.themoviedb.org/documentation/api)
 - [Firebase](https://firebase.google.com/)
+- [LazyLoad](https://github.com/verlok/lazyload) (Speeds up web application by loading images only as they enter the viewport)
+- [ClampJS](https://github.com/josephschmitt/Clamp.js/)
 
 ## Real-Time Viewing
 
