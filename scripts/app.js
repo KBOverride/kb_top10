@@ -36,7 +36,7 @@ comingSoon.addEventListener("readystatechange", function () {
 });
 
 // Movies in theatres for past 2 months and sorted by popularity by default request
-if (fname == "index.html" || fname == "now-playing-page2.html") {
+if (fname == "index.html" || fname == "now-playing-page2.html" || window.location.href == "https://kb-top-10-movies.firebaseapp.com/") {
 	xhr.open("GET", "https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.lte=2017-10-12&primary_release_date.gte=2017-08-10&page=1");
 	comingSoon.open("GET", "https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.gte=2017-10-12&page=1");
 	counter = 1;

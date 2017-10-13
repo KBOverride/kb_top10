@@ -51,7 +51,7 @@ h4, p {
 }*/
 
 .mdl-body main {
-	padding-top: 48px;
+	/* padding-top: 48px; */
 }
 
 
@@ -141,6 +141,72 @@ h4, p {
 img {
 	height: 278px;
 }
+
+/* Search Bar */
+.mdl-textfield {
+	width: 450px;
+}
+
+.mdl-textfield__input {
+	color: #D3D3D3;
+	border-bottom: 1px solid #808080;
+}
+
+.mdl-textfield__label {
+	color: #808080;
+}
+
+.mdl-textfield__icon {
+	position: absolute;
+	line-height: 1.3;
+}
+
+.mdl-textfield__icon ~ * {
+	margin-left: 30px;
+	width: calc(100% - 48px);
+}
+
+.searchMoviesDiv {
+	display: flex;
+  align-items: center;
+	justify-content: center;
+	background-color: #424242;
+	color: #D3D3D3;
+	height: 40px;
+	margin-bottom: 48px;
+}
+
+
+/* More Info */
+.searchMoviesMoreInfo {
+	display: flex;
+  align-items: center;
+	justify-content: center;
+	background-color: #424242;
+	color: #D3D3D3;
+	height: 40px;
+}
+
+/* Backdrop image */
+
+.backdropImg {
+	content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  display: block;
+	background: url(http://image.tmdb.org/t/p/w1920/tcheoA2nPATCm2vvXw2hVQoaEFD.jpg) center top no-repeat;
+	background-position: center;
+	background-size: cover;
+	height: 500px;
+	opacity: 0.5;
+}
+
+.textbro {
+	opacity: 1;
+}
+
 
 /* For Overflowing text */
 /*.mdl-card__supporting-text {
