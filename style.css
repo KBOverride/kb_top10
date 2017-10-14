@@ -197,14 +197,39 @@ img {
   z-index: -1;
   display: block;
 	background: url(http://image.tmdb.org/t/p/w1920/tcheoA2nPATCm2vvXw2hVQoaEFD.jpg) center top no-repeat;
+	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
 	height: 500px;
-	opacity: 0.5;
+	opacity: 0.2;
 }
 
-.textbro {
-	opacity: 1;
+.backdropPoster {
+	width: 267px;
+	height: 400px;
+	margin-left: 400px;
+	margin-top: 50px;
+	/*border: solid;*/
+	position: absolute;
+}
+
+#imgPoster {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.moreInfoTitleDiv {
+	margin-left: 750px;
+	margin-top: 40px;
+  padding-bottom: 10px;
+  color: #fff;
+}
+
+.overview {
+	width: 600px;
+	margin-left: 750px;
+	color: #fff;
 }
 
 
