@@ -3,53 +3,41 @@
 var data = "{}";
 var counter = 0;
 
-// for (var i = 0; i < 3; i++) {
-// 	var xhr = new XMLHttpRequest();
-// 	xhr.open("GET", "https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.lte=2017-10-11&primary_release_date.gte=2017-08-10&page="+i+1 );
-// 	xhr.addEventListener("readystatechange", function () {
-// 		if (this.readyState === this.DONE) {
-// 			var myArr = JSON.parse(this.responseText);
-// 			displayInfo(myArr, counter);
-// 			console.log("test"+i);
-// 			counter+=40;
-// 		}
-// 	});
-// 	xhr.send(data);
-// }
-
 var fname = fileName();
-var xhr = new XMLHttpRequest();
+var nowPlaying = new XMLHttpRequest();
 var comingSoon = new XMLHttpRequest();
 
-xhr.addEventListener("readystatechange", function () {
+nowPlaying.addEventListener("readystatechange", function () {
   if (this.readyState === this.DONE) {
     var myArr = JSON.parse(this.responseText);
+    var flag = 0;
     displayNowPlaying(myArr, counter);
-    localData(myArr);
+    localData(myArr, flag);
   }
 });
 
 comingSoon.addEventListener("readystatechange", function () {
   if (this.readyState === this.DONE) {
     var myArr = JSON.parse(this.responseText);
+    var flag = 1;
     displayComingSoon(myArr, counter);
-    //localStorage(myArr);
+    localData(myArr, flag);
   }
 });
 
 // Requests made here appropiately
 if (fname == "index.html" || fname == "now-playing-page2.html" || window.location.href == "https://kb-top-10-movies.firebaseapp.com/") {
-	xhr.open("GET", "https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.lte=2017-10-12&primary_release_date.gte=2017-08-10&page=1");
+	nowPlaying.open("GET", "https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.lte=2017-10-12&primary_release_date.gte=2017-08-10&page=1");
 	comingSoon.open("GET", "https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.gte=2017-10-12&page=1");
 	counter = 1;
-	xhr.send(data);
+	nowPlaying.send(data);
 	comingSoon.send(data);
 
 } else if (fname == "now-playing-page3.html" || fname == "now-playing-page4.html") {
-	xhr.open("GET", "https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.lte=2017-10-12&primary_release_date.gte=2017-08-10&page=2");
+	nowPlaying.open("GET", "https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.lte=2017-10-12&primary_release_date.gte=2017-08-10&page=2");
 	comingSoon.open("GET", "https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.gte=2017-10-12&page=2");
 	counter = 21;
-	xhr.send(data);
+	nowPlaying.send(data);
 	comingSoon.send(data);
 
 } else if (fname == "moreInfo.html") {
@@ -58,20 +46,26 @@ if (fname == "index.html" || fname == "now-playing-page2.html" || window.locatio
 
 /* Saving data to session Storage for moreInfo.html*/
 
-function localData(myArr){
+function localData(myArr, flag){
 	var clickedButton = $(".mdl-button");
+		$(clickedButton).click(function () {
+			var j = (this.id).replace( /^\D+/g, '');
+			j = j - 1;
+			 if ($("#scroll-tab-1").hasClass("is-active") && (flag == 0)) {
+    			localStorage.movieTitle = myArr.results[j].title;
+				localStorage.movieOverview = myArr.results[j].overview;
+				localStorage.movieBackDrop = myArr.results[j].backdrop_path;
+				localStorage.moviePoster = myArr.results[j].poster_path;
+    		}
 
-	$(clickedButton).click(function () {
-		var j = (this.id).replace( /^\D+/g, '');
-		j = j - 1;
-		localStorage.movieTitle = myArr.results[j].title;
-		localStorage.movieOverview = myArr.results[j].overview;
-		localStorage.movieBackDrop = myArr.results[j].backdrop_path;
-		localStorage.moviePoster = myArr.results[j].poster_path;
-	});
+    		if ($("#scroll-tab-2").hasClass("is-active") && (flag == 1)) {
+    			localStorage.movieTitle = myArr.results[j].title;
+				localStorage.movieOverview = myArr.results[j].overview;
+				localStorage.movieBackDrop = myArr.results[j].backdrop_path;
+				localStorage.moviePoster = myArr.results[j].poster_path;
+    		}
+		});
 }
-
-
 
 function displayNowPlaying(myArr, counter) {
 
@@ -95,8 +89,10 @@ function displayComingSoon(myArr, counter) {
 
 function displayMoreInfo() {
 
+	
 	var urlStr = "url(http://image.tmdb.org/t/p/w1920" + localStorage.movieBackDrop + ")";
 	$(".backdropImg").css("background", urlStr + " center top no-repeat");
+	console.log(urlStr);
 	$(".moreInfoTitle").text(localStorage.movieTitle);
 	$(".overviewInfo").text(localStorage.movieOverview);
 	$("#imgPoster").attr("src", "http://image.tmdb.org/t/p/w342/" + localStorage.moviePoster);
