@@ -31,7 +31,8 @@ body {
 
 /* Movie title and text color */
 h4, p {
-	color: #D3D3D3;
+	/*color: #D3D3D3;*/
+	color: #fff;
 }
 
 /*.movie-card.mdl-card{
