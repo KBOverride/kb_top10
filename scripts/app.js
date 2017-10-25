@@ -42,7 +42,7 @@ comingSoon.addEventListener("readystatechange", function () {
 });
 
 // Requests made here appropiately
-if (fname == "index.html" || fname == "now-playing-page2.html" || window.location.href == "https://kb-top-10-movies.firebaseapp.com/") {
+if (fname == "index.html" || fname == "page2.html" || window.location.href == "https://kb-top-10-movies.firebaseapp.com/") {
 	nowPlaying.open("GET", "https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.lte=" + year + "-" + month + "-" + day + "&primary_release_date.gte="
 	+ yearPast + "-" + monthPast + "-" + dayPast + "&page=1");
 	day=day+1;
@@ -51,7 +51,7 @@ if (fname == "index.html" || fname == "now-playing-page2.html" || window.locatio
 	nowPlaying.send(data);
 	comingSoon.send(data);
 
-} else if (fname == "now-playing-page3.html" || fname == "now-playing-page4.html") {
+} else if (fname == "page3.html" || fname == "page4.html") {
 	nowPlaying.open("GET", "https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.lte=" + year + "-" + month + "-" + day + "&primary_release_date.gte="
 	+ yearPast + "-" + monthPast + "-" + dayPast + "&page=2");
 	day=day+1;
@@ -134,8 +134,8 @@ function getTrailers() {
 }
 
 /* Star Rating */
-$(function() {
-	$('#example').barrating({
-		theme: 'fontawesome-stars'
-	});
-});
+// $(function() {
+// 	$('#example').barrating({
+// 		theme: 'fontawesome-stars'
+// 	});
+// });
