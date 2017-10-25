@@ -45,14 +45,17 @@ comingSoon.addEventListener("readystatechange", function () {
 if (fname == "index.html" || fname == "now-playing-page2.html" || window.location.href == "https://kb-top-10-movies.firebaseapp.com/") {
 	nowPlaying.open("GET", "https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.lte=" + year + "-" + month + "-" + day + "&primary_release_date.gte="
 	+ yearPast + "-" + monthPast + "-" + dayPast + "&page=1");
+	day=day+1;
 	comingSoon.open("GET", "https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.gte="  + year + "-" + month + "-" + day + "&page=1");
 	counter = 1;
 	nowPlaying.send(data);
 	comingSoon.send(data);
 
 } else if (fname == "now-playing-page3.html" || fname == "now-playing-page4.html") {
-	nowPlaying.open("GET", "https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.lte=2017-10-19&primary_release_date.gte=2017-08-19&page=2");
-	comingSoon.open("GET", "https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.gte=2017-10-19&page=2");
+	nowPlaying.open("GET", "https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.lte=" + year + "-" + month + "-" + day + "&primary_release_date.gte="
+	+ yearPast + "-" + monthPast + "-" + dayPast + "&page=2");
+	day=day+1;
+	comingSoon.open("GET", "https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.gte"  + year + "-" + month + "-" + day + "&page=2");
 	counter = 21;
 	nowPlaying.send(data);
 	comingSoon.send(data);
@@ -105,6 +108,7 @@ function displayComingSoon(myArr, counter) {
 		$(".comingSoonPoster" + counter).attr("src", "http://image.tmdb.org/t/p/w185/" + myArr.results[i].poster_path);
 		$(".comingSoonTitle" + counter).text(myArr.results[i].title);
 		$(".comingSoonDesc" + counter).text(myArr.results[i].overview);
+		$(".releaseDateComingSoon" + counter).text(myArr.results[i].release_date);
 		counter++;
 	}
 }
@@ -128,3 +132,10 @@ function fileName() {
 function getTrailers() {
 	var urlStr = "https://www.youtube.com/watch?v=";
 }
+
+/* Star Rating */
+$(function() {
+	$('#example').barrating({
+		theme: 'fontawesome-stars'
+	});
+});

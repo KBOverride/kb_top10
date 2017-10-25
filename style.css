@@ -252,6 +252,7 @@ h4, h6, p {
 
 h6 {
 	display: flex;
+	font-style: italic;
 }
 
 /* Credits (Actors, etc.) */
