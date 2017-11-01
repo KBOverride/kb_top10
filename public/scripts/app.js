@@ -8,6 +8,7 @@ var n = new Date();
 var year = n.getFullYear();
 var month = n.getMonth() + 1;
 var day = n.getDate();
+var daysInCurrentMonth = 0;
 
 var monthPast = month - 2;
 var yearPast = year;
@@ -21,7 +22,7 @@ if (monthPast < 0) {
 var fname = fileName();
 var nowPlaying = new XMLHttpRequest();
 var comingSoon = new XMLHttpRequest();
-var videos = new XMLHttpRequest();
+var moreDetails = new XMLHttpRequest();
 
 nowPlaying.addEventListener("readystatechange", function () {
   if (this.readyState === this.DONE) {
@@ -41,11 +42,27 @@ comingSoon.addEventListener("readystatechange", function () {
   }
 });
 
+moreDetails.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    var myArr = JSON.parse(this.responseText);
+    movieDetails(myArr, counter);
+  }
+});
+
 // Requests made here appropiately
 if (fname == "index.html" || fname == "page2.html" || window.location.href == "https://kb-top-10-movies.firebaseapp.com/") {
 	nowPlaying.open("GET", "https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.lte=" + year + "-" + month + "-" + day + "&primary_release_date.gte="
 	+ yearPast + "-" + monthPast + "-" + dayPast + "&page=1");
+	daysInCurrentMonth = daysInMonth(month,year);
 	day=day+1;
+	if (day > daysInCurrentMonth) {
+		day = 1;
+		month = month + 1;
+		if(month == 13) {
+			month = 1;
+			year = year + 1;
+		}
+	}
 	comingSoon.open("GET", "https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.gte="  + year + "-" + month + "-" + day + "&page=1");
 	counter = 1;
 	nowPlaying.send(data);
@@ -55,13 +72,16 @@ if (fname == "index.html" || fname == "page2.html" || window.location.href == "h
 	nowPlaying.open("GET", "https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.lte=" + year + "-" + month + "-" + day + "&primary_release_date.gte="
 	+ yearPast + "-" + monthPast + "-" + dayPast + "&page=2");
 	day=day+1;
-	comingSoon.open("GET", "https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.gte"  + year + "-" + month + "-" + day + "&page=2");
+	comingSoon.open("GET", "https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.gte="  + year + "-" + month + "-" + day + "&page=2");
 	counter = 21;
 	nowPlaying.send(data);
 	comingSoon.send(data);
 
 } else if (fname == "moreInfo.html") {
 	displayMoreInfo();
+	moreDetails.open("GET", "https://api.themoviedb.org/3/movie/" + localStorage.movieID + "?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US");
+	moreDetails.send(data);
+
 }
 
 /* Saving data to session Storage for moreInfo.html*/
@@ -94,7 +114,7 @@ function localData(myArr, flag){
 function displayNowPlaying(myArr, counter) {
 
 	for (var i = 0; i < 20; i++) {
-		$(".poster" + counter).attr("src", "http://image.tmdb.org/t/p/w185/" + myArr.results[i].poster_path);
+		$(".poster" + counter).attr("src", "https://image.tmdb.org/t/p/w185/" + myArr.results[i].poster_path);
 		$(".movieTitle" + counter).text(myArr.results[i].title);
 		$(".movieDesc" + counter).text(myArr.results[i].overview);
 		$(".releaseDateNow" + counter).text(myArr.results[i].release_date);
@@ -105,7 +125,7 @@ function displayNowPlaying(myArr, counter) {
 function displayComingSoon(myArr, counter) {
 
 	for (var i = 0; i < 20; i++) {
-		$(".comingSoonPoster" + counter).attr("src", "http://image.tmdb.org/t/p/w185/" + myArr.results[i].poster_path);
+		$(".comingSoonPoster" + counter).attr("src", "https://image.tmdb.org/t/p/w185/" + myArr.results[i].poster_path);
 		$(".comingSoonTitle" + counter).text(myArr.results[i].title);
 		$(".comingSoonDesc" + counter).text(myArr.results[i].overview);
 		$(".releaseDateComingSoon" + counter).text(myArr.results[i].release_date);
@@ -115,12 +135,15 @@ function displayComingSoon(myArr, counter) {
 
 function displayMoreInfo() {
 	
-	var urlStr = "url(http://image.tmdb.org/t/p/w1920" + localStorage.movieBackDrop + ")";
+	var urlStr = "url(https://image.tmdb.org/t/p/w1920" + localStorage.movieBackDrop + ")";
 	$(".backdropImg").css("background", urlStr + " center top no-repeat");
-	console.log(urlStr);
 	$(".moreInfoTitle").text(localStorage.movieTitle);
 	$(".overviewInfo").text(localStorage.movieOverview);
-	$("#imgPoster").attr("src", "http://image.tmdb.org/t/p/w342/" + localStorage.moviePoster);
+	$("#imgPoster").attr("src", "https://image.tmdb.org/t/p/w342/" + localStorage.moviePoster);
+}
+
+function movieDetails() {
+	$(".runtime").text(myArr.runtime);
 }
 
 function fileName() {
@@ -131,6 +154,26 @@ function fileName() {
 
 function getTrailers() {
 	var urlStr = "https://www.youtube.com/watch?v=";
+}
+
+function daysInMonth(month,year) {
+	return new Date(year, month, 0).getDate();
+}
+
+function movieDetails(myArr, counter) {
+	var link = document.createElement('a');
+	link.textContent = myArr.homepage;
+	link.href = myArr.homepage;
+	document.getElementById('homepage').appendChild(link);
+	$(".releaseDate").append(" " + myArr.release_date);
+	$(".runtime").append(" " + myArr.runtime + " minutes");
+	for (var i = 0; i < myArr.genres.length; i++) {
+		if (i == myArr.genres.length - 1) {
+			$(".genres").append(" " + myArr.genres[i].name);
+		} else {
+			$(".genres").append(" " + myArr.genres[i].name + ",");
+		}
+	}
 }
 
 /* Star Rating */

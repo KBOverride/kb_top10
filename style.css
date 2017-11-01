@@ -81,7 +81,7 @@ h4, h6, p {
 }
 
 .mdl-body main > .page-content {
-		padding-bottom: 48px;
+	padding-bottom: 48px;
 }
 
 .mdl-body .mdl-card__actions {
@@ -175,7 +175,7 @@ h4, h6, p {
 
 .searchMoviesDiv {
 	display: flex;
-  align-items: center;
+	align-items: center;
 	justify-content: center;
 	background-color: #424242;
 	color: #D3D3D3;
@@ -184,10 +184,10 @@ h4, h6, p {
 }
 
 
-/* More Info */
+/***** More Info *****/
 .searchMoviesMoreInfo {
 	display: flex;
-  align-items: center;
+	align-items: center;
 	justify-content: center;
 	background-color: #424242;
 	color: #D3D3D3;
@@ -203,11 +203,11 @@ h4, h6, p {
 .backdropImg {
 	display: flex;
 	content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  z-index: -1;
-  display: block;
+	position: absolute;
+	left: 0;
+	right: 0;
+	z-index: -1;
+	display: block;
 /*	background: url(http://image.tmdb.org/t/p/w1920/tcheoA2nPATCm2vvXw2hVQoaEFD.jpg) center top no-repeat;*/
 	background-repeat: no-repeat;
 	background-position: center;
@@ -229,8 +229,8 @@ h4, h6, p {
 .moreInfoTitleDiv {
 	display: flex;
 	flex-direction: column;
-  /*position: absolute;*/
-  color: #fff;
+  	/*position: absolute;*/
+  	color: #fff;
 }
 
 /*@media screen and (min-width: 1025px) {*/
@@ -254,6 +254,11 @@ h6 {
 	display: flex;
 	font-style: italic;
 }
+
+.releaseDate, .runtime, .genres, .homepage {
+	margin-bottom: 0;
+}
+
 
 /* Credits (Actors, etc.) */
 
