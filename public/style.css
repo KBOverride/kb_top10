@@ -56,18 +56,14 @@ h4, h6, p {
 }
 
 
-.mdl-body .mdl-card {
+.mdl-body .mdl-card-front {
 	height: 278px;
 	display: flex;
 	flex-direction: column;
 	background-color: #424242;
 }
 
-.mdl-body .mdl-card__actions {
-	border-color: darkgrey;
-}
-
-.mdl-body .mdl-card > * {
+.mdl-body .mdl-card-front > * {
 	height: auto;
 }
 
@@ -84,36 +80,37 @@ h4, h6, p {
 	padding-bottom: 48px;
 }
 
-.mdl-body .mdl-card__actions {
+.mdl-body .mdl-card__actions-front {
 	margin: 0;
 	color: inherit;
 	padding: 4px 30px;
+	border-color: darkgrey;
 }
 
-.mdl-body .mdl-card__actions a {
+.mdl-body .mdl-card__actions-front a {
 	margin: 0;
 }
 
 /* Supporting Text */
-.mdl-body .mdl-card .mdl-card__supporting-text {
+.mdl-body .mdl-card-front .mdl-card__supporting-text {
 	flex-grow: 1;
 	padding: 0;
 	color: inherit;
 	width: calc(100% - 80px);
 }
 
-.mdl-body .mdl-card .mdl-card__supporting-text h4 {
+.mdl-body .mdl-card-front .mdl-card__supporting-text h4 {
 	margin: 20px;
 	margin-bottom: 0px;
 }
 
-.mdl-body .mdl-card .mdl-card__supporting-text h6 {
+.mdl-body .mdl-card-front .mdl-card__supporting-text h6 {
 	margin: 0px;
 	margin-left: 20px;
 	font-size: 12px;
 }
 
-.mdl-body .mdl-card .mdl-card__supporting-text p {
+.mdl-body .mdl-card-front .mdl-card__supporting-text p {
 	margin-top: 20px;
 	margin-left: 20px;
 }
@@ -195,13 +192,20 @@ h4, h6, p {
 }
 
 .grid1 {
-	height: 500px;
+	/*height: 500px;*/
+	padding: 0;
+}
+
+@media screen and (min-width: 1025px) {
+	.grid1 {
+		height: 500px;
+	}
 }
 
 /* Backdrop image */
 
 .backdropImg {
-	display: flex;
+	/*display: flex;*/
 	content: '';
 	position: absolute;
 	left: 0;
@@ -217,7 +221,7 @@ h4, h6, p {
 }
 
 .backdropPoster {
-	margin-top: 50px;
+	
 	/*border: solid;*/
 	/*position: absolute;*/
 }
@@ -227,8 +231,8 @@ h4, h6, p {
 }
 
 .moreInfoTitleDiv {
-	display: flex;
-	flex-direction: column;
+/*	display: flex;
+	flex-direction: column;*/
   	/*position: absolute;*/
   	color: #fff;
 }
@@ -247,7 +251,7 @@ h4, h6, p {
 	padding-top: 100px;
 }
 .trailerTitle {
-	margin-top: -20px;
+
 }
 
 h6 {
@@ -259,6 +263,54 @@ h6 {
 	margin-bottom: 0;
 }
 
+.mdl-body div.section--center2 {
+	max-width: 1005px;
+	margin-bottom: 48px;
+}
+
+.section--center2 .mdl-card {
+	width: 185px;
+	margin: 8px;
+}
+
+
+.section--center2 .mdl-card {
+	height: 328px;
+/*	display: flex;
+	flex-direction: column;*/
+	background-color: #424242;
+}
+
+.section--center2 .mdl-card > .mdl-card__title {
+	/*background: url('http://image.tmdb.org/t/p/w185/eIkFHNlfretLS1spAcIoihKUS62.jpg') no-repeat;*/
+}
+
+.mdl-card-cast .mdl-card__supporting-text {
+	width: 185px;
+	color: #fff;
+}
+
+.castTitle {
+/*	display: flex;
+	flex-direction: column;*/
+  	color: #fff;
+}
+
+/* Trailer */
+.trailerWrapper {
+	position: relative;
+	margin-left: 0px;
+	padding-bottom: 56.25%; /* 16:9 screen*/
+	padding-top: 25px;
+}
+
+.trailerWrapper iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 75%;
+	height: 75%;
+}
 
 /* Credits (Actors, etc.) */
 

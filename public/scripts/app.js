@@ -23,6 +23,8 @@ var fname = fileName();
 var nowPlaying = new XMLHttpRequest();
 var comingSoon = new XMLHttpRequest();
 var moreDetails = new XMLHttpRequest();
+var creditsDetails = new XMLHttpRequest();
+var videos = new XMLHttpRequest();
 
 nowPlaying.addEventListener("readystatechange", function () {
   if (this.readyState === this.DONE) {
@@ -49,9 +51,26 @@ moreDetails.addEventListener("readystatechange", function () {
   }
 });
 
+creditsDetails.addEventListener("readystatechange", function () {
+	if (this.readyState === this.DONE) {
+		var myArr = JSON.parse(this.responseText);
+		topCastDetails(myArr);
+	}
+})
+
+videos.addEventListener("readystatechange", function () {
+	if (this.readyState === this.DONE) {
+		var myArr = JSON.parse(this.responseText);
+		videoTrailer(myArr);
+	}
+})
+
+
 // Requests made here appropiately
 if (fname == "index.html" || fname == "page2.html" || window.location.href == "https://kb-top-10-movies.firebaseapp.com/") {
 	nowPlaying.open("GET", "https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.lte=" + year + "-" + month + "-" + day + "&primary_release_date.gte="
+	+ yearPast + "-" + monthPast + "-" + dayPast + "&page=1");
+	console.log("https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.lte=" + year + "-" + month + "-" + day + "&primary_release_date.gte="
 	+ yearPast + "-" + monthPast + "-" + dayPast + "&page=1");
 	daysInCurrentMonth = daysInMonth(month,year);
 	day=day+1;
@@ -64,6 +83,7 @@ if (fname == "index.html" || fname == "page2.html" || window.location.href == "h
 		}
 	}
 	comingSoon.open("GET", "https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.gte="  + year + "-" + month + "-" + day + "&page=1");
+	console.log("https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.gte="  + year + "-" + month + "-" + day + "&page=1");
 	counter = 1;
 	nowPlaying.send(data);
 	comingSoon.send(data);
@@ -72,6 +92,7 @@ if (fname == "index.html" || fname == "page2.html" || window.location.href == "h
 	nowPlaying.open("GET", "https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.lte=" + year + "-" + month + "-" + day + "&primary_release_date.gte="
 	+ yearPast + "-" + monthPast + "-" + dayPast + "&page=2");
 	day=day+1;
+
 	comingSoon.open("GET", "https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.gte="  + year + "-" + month + "-" + day + "&page=2");
 	counter = 21;
 	nowPlaying.send(data);
@@ -81,8 +102,12 @@ if (fname == "index.html" || fname == "page2.html" || window.location.href == "h
 	displayMoreInfo();
 	moreDetails.open("GET", "https://api.themoviedb.org/3/movie/" + localStorage.movieID + "?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US");
 	moreDetails.send(data);
-
+	creditsDetails.open("GET", "https://api.themoviedb.org/3/movie/" + localStorage.movieID + "/credits?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US");
+	creditsDetails.send(data);
+	videos.open("GET", "https://api.themoviedb.org/3/movie/" + localStorage.movieID + "/videos?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US");
+	videos.send(data);
 }
+
 
 /* Saving data to session Storage for moreInfo.html*/
 
@@ -167,12 +192,55 @@ function movieDetails(myArr, counter) {
 	document.getElementById('homepage').appendChild(link);
 	$(".releaseDate").append(" " + myArr.release_date);
 	$(".runtime").append(" " + myArr.runtime + " minutes");
+	$(".voteAverage").append(" " + myArr.vote_average);
 	for (var i = 0; i < myArr.genres.length; i++) {
 		if (i == myArr.genres.length - 1) {
 			$(".genres").append(" " + myArr.genres[i].name);
 		} else {
 			$(".genres").append(" " + myArr.genres[i].name + ",");
 		}
+	}
+}
+
+function topCastDetails(myArr) {
+
+	for (var i = 1; i < 6; i++) {
+		var urlStr = "url(https://image.tmdb.org/t/p/w185" + myArr.cast[i].profile_path + ")";
+		$(".top-cast-img" + i).css("background", urlStr + " no-repeat");
+		$(".top-cast-name" + i).text(myArr.cast[i].name);
+	}
+}
+
+function videoTrailer(myArr) {
+
+	var officialTrailer = false;
+	var officialTeaserTrailer = false;
+	var j = 0;
+	var k = 0;
+
+	for(var i = 0; i < myArr.results.length; i++) {
+		if(myArr.results[i].name == "Official Trailer") {
+			officialTrailer = true;
+			j = i;
+		}
+
+		if(myArr.results[i].name == "Official Teaser Trailer") {
+			officialTeaserTrailer = true;
+			k = i;
+		}
+	}
+
+	if(officialTrailer == true) {
+		var urlStr = "https://www.youtube.com/embed/" + myArr.results[j].key;
+		$(".iframeClass").attr("src", urlStr);
+		console.log("official");
+	} else if(officialTrailer == false && officialTeaserTrailer == true) {
+		var urlStr = "https://www.youtube.com/embed/" + myArr.results[k].key;
+		$(".iframeClass").attr("src", urlStr);
+		console.log("teaser");
+	} else {
+		var urlStr = "https://www.youtube.com/embed/" + myArr.results[0].key;
+		$(".iframeClass").attr("src", urlStr);
 	}
 }
 
