@@ -224,6 +224,11 @@ function videoTrailer(myArr) {
 			j = i;
 		}
 
+		if(myArr.results[i].name == "Official Trailer 1") {
+			officialTrailer = true;
+			j = i;
+		}
+
 		if(myArr.results[i].name == "Official Teaser Trailer") {
 			officialTeaserTrailer = true;
 			k = i;
