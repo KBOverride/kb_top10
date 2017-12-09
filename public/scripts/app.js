@@ -9,6 +9,8 @@ var year = n.getFullYear();
 var month = n.getMonth() + 1;
 var day = n.getDate();
 var daysInCurrentMonth = 0;
+var typingTimer;
+var doneTypingInterval = 1500;
 
 var monthPast = month - 2;
 var yearPast = year;
@@ -25,6 +27,7 @@ var comingSoon = new XMLHttpRequest();
 var moreDetails = new XMLHttpRequest();
 var creditsDetails = new XMLHttpRequest();
 var videos = new XMLHttpRequest();
+var searchMovies = new XMLHttpRequest();
 
 nowPlaying.addEventListener("readystatechange", function () {
   if (this.readyState === this.DONE) {
@@ -56,14 +59,61 @@ creditsDetails.addEventListener("readystatechange", function () {
 		var myArr = JSON.parse(this.responseText);
 		topCastDetails(myArr);
 	}
-})
+});
 
 videos.addEventListener("readystatechange", function () {
 	if (this.readyState === this.DONE) {
 		var myArr = JSON.parse(this.responseText);
 		videoTrailer(myArr);
 	}
-})
+});
+
+searchMovies.addEventListener("readystatechange", function () {
+	if (this.readyState === this.DONE) {
+		var myArr = JSON.parse(this.responseText);
+		searchingMovies(myArr);
+	}
+});
+
+// Searching movies
+$('#searchMovies').on('input', function() {
+	console.log("testing2");
+	window.clearTimeout(typingTimer)
+	typingTimer = window.setTimeout(doneTyping, doneTypingInterval);
+});
+
+
+
+function doneTyping() {
+	var userInput = document.getElementById('searchMovies').value;
+	console.log(userInput);
+
+	if(userInput != '') {
+		// console.log("https://api.themoviedb.org/3/search/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&page=1&query=" + input);
+		searchMovies.open("GET", "https://api.themoviedb.org/3/search/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&page=1&query=" + userInput);
+		searchMovies.send(data);
+	}
+}
+
+function searchingMovies(myArr) {
+
+	var options = {
+		data: myArr.results,
+
+		getValue: "title",
+
+		theme: "dark",
+
+		list: {
+			match: {
+				enabled: true
+			}
+		}
+	};
+
+		$("#searchMovies").easyAutocomplete(options);
+		console.log("testing");
+}
 
 
 // Requests made here appropiately
@@ -200,6 +250,48 @@ function movieDetails(myArr, counter) {
 			$(".genres").append(" " + myArr.genres[i].name + ",");
 		}
 	}
+
+	// Star Rating 
+	var currentRating = myArr.vote_average;
+
+    $('.stars-rating .current-rating')
+        .find('span')
+        .html(currentRating);
+
+    $('.stars-rating .clear-rating').on('click', function(event) {
+        event.preventDefault();
+
+        $('#show-stars')
+            .barrating('clear');
+    });
+
+    $('#show-stars').barrating({
+        theme: 'fontawesome-stars-o',
+        showSelectedRating: false,
+        initialRating: currentRating,
+        onSelect: function(value, text) {
+            if (!value) {
+                $('#show-stars')
+                    .barrating('clear');
+            } else {
+                $('.stars-rating .current-rating')
+                    .addClass('hidden');
+
+                $('.stars-rating .your-rating')
+                    .removeClass('hidden')
+                    .find('span')
+                    .html(value);
+            }
+        },
+        onClear: function(value, text) {
+            $('.stars-rating')
+                .find('.current-rating')
+                .removeClass('hidden')
+                .end()
+                .find('.your-rating')
+                .addClass('hidden');
+        }
+    });
 }
 
 function topCastDetails(myArr) {

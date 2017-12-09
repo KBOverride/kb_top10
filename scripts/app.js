@@ -82,6 +82,8 @@ $('#searchMovies').on('input', function() {
 	typingTimer = window.setTimeout(doneTyping, doneTypingInterval);
 });
 
+
+
 function doneTyping() {
 	var userInput = document.getElementById('searchMovies').value;
 	console.log(userInput);
@@ -248,6 +250,48 @@ function movieDetails(myArr, counter) {
 			$(".genres").append(" " + myArr.genres[i].name + ",");
 		}
 	}
+
+	// Star Rating 
+	var currentRating = myArr.vote_average;
+
+    $('.stars-rating .current-rating')
+        .find('span')
+        .html(currentRating);
+
+    $('.stars-rating .clear-rating').on('click', function(event) {
+        event.preventDefault();
+
+        $('#show-stars')
+            .barrating('clear');
+    });
+
+    $('#show-stars').barrating({
+        theme: 'fontawesome-stars-o',
+        showSelectedRating: false,
+        initialRating: currentRating,
+        onSelect: function(value, text) {
+            if (!value) {
+                $('#show-stars')
+                    .barrating('clear');
+            } else {
+                $('.stars-rating .current-rating')
+                    .addClass('hidden');
+
+                $('.stars-rating .your-rating')
+                    .removeClass('hidden')
+                    .find('span')
+                    .html(value);
+            }
+        },
+        onClear: function(value, text) {
+            $('.stars-rating')
+                .find('.current-rating')
+                .removeClass('hidden')
+                .end()
+                .find('.your-rating')
+                .addClass('hidden');
+        }
+    });
 }
 
 function topCastDetails(myArr) {

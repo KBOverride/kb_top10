@@ -6,6 +6,8 @@
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 		<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue_grey-indigo.min.css"/>
 		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+		<link rel="stylesheet" href="dist/themes/fontawesome-stars.css">
 		<link rel="stylesheet" href="easy-autocomplete.min.css">
 		<link rel="stylesheet" href="easy-autocomplete.themes.min.css">
 		<meta charset="utf-8">
@@ -425,6 +427,11 @@
 						<div class="backward"></div>
 					</div>
 				</div>
+				<footer class="mdl-mini-footer">
+					<div class="mdl-mini-footer__left-section">
+						<div class="mdl-logo">Kabir Singh's Movie Application</div>
+					</div>
+				</footer>
 			</main>
 		</div>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -435,6 +442,14 @@
 		<script>
 			new LazyLoad();
 		</script>
+		<script src="dist/jquery.barrating.min.js"></script>
+		<script type="text/javascript">
+			$(function() {
+      $('#example').barrating({
+        theme: 'fontawesome-stars'
+      });
+    });
+  </script>
 	</body>
 </html>
 
