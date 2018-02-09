@@ -18,6 +18,8 @@ var dayPast = day;
 if (monthPast < 0) {
 	monthPast = 12 + monthPast;
 	yearPast = yearPast - 1;
+} else if(monthPast == 0) {
+	monthPast++;
 }
 
 
@@ -120,8 +122,8 @@ function searchingMovies(myArr) {
 if (fname == "index.html" || fname == "page2.html" || window.location.href == "https://kb-top-10-movies.firebaseapp.com/") {
 	nowPlaying.open("GET", "https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.lte=" + year + "-" + month + "-" + day + "&primary_release_date.gte="
 	+ yearPast + "-" + monthPast + "-" + dayPast + "&page=1");
-	console.log("https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.lte=" + year + "-" + month + "-" + day + "&primary_release_date.gte="
-	+ yearPast + "-" + monthPast + "-" + dayPast + "&page=1");
+	// console.log("https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.lte=" + year + "-" + month + "-" + day + "&primary_release_date.gte="
+	// + yearPast + "-" + monthPast + "-" + dayPast + "&page=1");
 	daysInCurrentMonth = daysInMonth(month,year);
 	day=day+1;
 	if (day > daysInCurrentMonth) {
@@ -141,8 +143,16 @@ if (fname == "index.html" || fname == "page2.html" || window.location.href == "h
 } else if (fname == "page3.html" || fname == "page4.html") {
 	nowPlaying.open("GET", "https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.lte=" + year + "-" + month + "-" + day + "&primary_release_date.gte="
 	+ yearPast + "-" + monthPast + "-" + dayPast + "&page=2");
+	daysInCurrentMonth = daysInMonth(month,year);
 	day=day+1;
-
+	if (day > daysInCurrentMonth) {
+		day = 1;
+		month = month + 1;
+		if(month == 13) {
+			month = 1;
+			year = year + 1;
+		}
+	}
 	comingSoon.open("GET", "https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.gte="  + year + "-" + month + "-" + day + "&page=2");
 	counter = 21;
 	nowPlaying.send(data);
