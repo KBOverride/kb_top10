@@ -1,5 +1,3 @@
-// Automated Test cases using Selenium and Chromedriver
-
 var webdriver = require ('selenium-webdriver'),
 	By = webdriver.By,
 	until = webdriver.until;
@@ -8,9 +6,16 @@ var webdriver = require ('selenium-webdriver'),
 
 	driver.get('https://kb-top-10-movies.firebaseapp.com');
 
-	driver.findElements(By.css('img')).then(function(el){
-		console.log("Success " + el);
+	driver.findElement(By.css('img')).getText().then(function(text){
+		console.log("Success, text of img is: " + text);
 	});
 
+	driver.findElements(By.css('h4')).then(function(elements){
+		elements.map(function(el){
+			el.getText().then(function(txt){
+				console.log("the text of the movie title element is: " + txt);
+			});
+		});
+	});
+	
 	driver.quit();
-
