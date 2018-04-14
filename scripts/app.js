@@ -220,7 +220,7 @@ function displayComingSoon(myArr, counter) {
 
 function displayMoreInfo() {
 	
-	var urlStr = "url(https://image.tmdb.org/t/p/w1920" + localStorage.movieBackDrop + ")";
+	var urlStr = "url(https://image.tmdb.org/t/p/original" + localStorage.movieBackDrop + ")";
 	$(".backdropImg").css("background", urlStr + " center top no-repeat");
 	$(".moreInfoTitle").text(localStorage.movieTitle);
 	$(".overviewInfo").text(localStorage.movieOverview);
