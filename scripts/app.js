@@ -15,6 +15,7 @@ var doneTypingInterval = 1500;
 var monthPast = month - 2;
 var yearPast = year;
 var dayPast = day;
+
 if (monthPast < 0) {
 	monthPast = 12 + monthPast;
 	yearPast = yearPast - 1;
@@ -22,6 +23,13 @@ if (monthPast < 0) {
 	monthPast++;
 }
 
+if (month < 10) {
+	month = ('0' + month).slice(-2);
+}
+
+if (monthPast < 10) {
+	monthPast = ('0' + monthPast).slice(-2);
+}
 
 var fname = fileName();
 var nowPlaying = new XMLHttpRequest();
@@ -79,7 +87,7 @@ searchMovies.addEventListener("readystatechange", function () {
 
 // Searching movies
 $('#searchMovies').on('input', function() {
-	console.log("testing2");
+	//console.log("testing2");
 	window.clearTimeout(typingTimer)
 	typingTimer = window.setTimeout(doneTyping, doneTypingInterval);
 });
@@ -88,7 +96,7 @@ $('#searchMovies').on('input', function() {
 
 function doneTyping() {
 	var userInput = document.getElementById('searchMovies').value;
-	console.log(userInput);
+	//console.log(userInput);
 
 	if(userInput != '') {
 		// console.log("https://api.themoviedb.org/3/search/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&page=1&query=" + input);
@@ -114,7 +122,7 @@ function searchingMovies(myArr) {
 	};
 
 		$("#searchMovies").easyAutocomplete(options);
-		console.log("testing");
+		//console.log("testing");
 }
 
 
@@ -122,8 +130,8 @@ function searchingMovies(myArr) {
 if (fname == "index.html" || fname == "page2.html" || window.location.href == "https://kb-top-10-movies.firebaseapp.com/") {
 	nowPlaying.open("GET", "https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.lte=" + year + "-" + month + "-" + day + "&primary_release_date.gte="
 	+ yearPast + "-" + monthPast + "-" + dayPast + "&page=1");
-	// console.log("https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.lte=" + year + "-" + month + "-" + day + "&primary_release_date.gte="
-	// + yearPast + "-" + monthPast + "-" + dayPast + "&page=1");
+	//console.log("https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.lte=" + year + "-" + month + "-" + day + "&primary_release_date.gte="
+	//+ yearPast + "-" + monthPast + "-" + dayPast + "&page=1");
 	daysInCurrentMonth = daysInMonth(month,year);
 	day=day+1;
 	if (day > daysInCurrentMonth) {
@@ -134,8 +142,13 @@ if (fname == "index.html" || fname == "page2.html" || window.location.href == "h
 			year = year + 1;
 		}
 	}
+
+	if (month < 10) {
+		month = ('0' + month).slice(-2);
+	}
+
 	comingSoon.open("GET", "https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.gte="  + year + "-" + month + "-" + day + "&page=1");
-	console.log("https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.gte="  + year + "-" + month + "-" + day + "&page=1");
+	//console.log("https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.gte="  + year + "-" + month + "-" + day + "&page=1");
 	counter = 1;
 	nowPlaying.send(data);
 	comingSoon.send(data);
@@ -153,7 +166,13 @@ if (fname == "index.html" || fname == "page2.html" || window.location.href == "h
 			year = year + 1;
 		}
 	}
+
+	if (month < 10) {
+		month = ('0' + month).slice(-2);
+	}
+
 	comingSoon.open("GET", "https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.gte="  + year + "-" + month + "-" + day + "&page=2");
+	//console.log("https://api.themoviedb.org/3/discover/movie?api_key=4a302fed57f688d39421fdd5fc669830&language=en-US&primary_release_date.gte="  + year + "-" + month + "-" + day + "&page=2");
 	counter = 21;
 	nowPlaying.send(data);
 	comingSoon.send(data);
@@ -219,7 +238,7 @@ function displayComingSoon(myArr, counter) {
 }
 
 function displayMoreInfo() {
-	
+
 	var urlStr = "url(https://image.tmdb.org/t/p/original" + localStorage.movieBackDrop + ")";
 	$(".backdropImg").css("background", urlStr + " center top no-repeat");
 	$(".moreInfoTitle").text(localStorage.movieTitle);
@@ -261,7 +280,7 @@ function movieDetails(myArr, counter) {
 		}
 	}
 
-	// Star Rating 
+	// Star Rating
 	var currentRating = myArr.vote_average;
 
     $('.stars-rating .current-rating')
@@ -340,11 +359,11 @@ function videoTrailer(myArr) {
 	if(officialTrailer == true) {
 		var urlStr = "https://www.youtube.com/embed/" + myArr.results[j].key;
 		$(".iframeClass").attr("src", urlStr);
-		console.log("official");
+		//console.log("official");
 	} else if(officialTrailer == false && officialTeaserTrailer == true) {
 		var urlStr = "https://www.youtube.com/embed/" + myArr.results[k].key;
 		$(".iframeClass").attr("src", urlStr);
-		console.log("teaser");
+		//console.log("teaser");
 	} else {
 		var urlStr = "https://www.youtube.com/embed/" + myArr.results[0].key;
 		$(".iframeClass").attr("src", urlStr);
